@@ -2,9 +2,11 @@ cmake_minimum_required(VERSION 2.8.6)
 
 set(VERSION "0.1")
 # $Format:Packaged from commit %H%nset(COMMIT %h)%nset(REFS "%d")$
-
+SET(BOOST_ROOT "D:/Boost")
+SET(BOOST_INCLUDE_DIR "D:/Boost/Boost_1_70_0/boost/icl")
+SET(BOOST_LIBRARYDIR "/D:/Boost/boost_1_70_0/libs")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set(CMAKE_CONFIGURATION_TYPES Debug RelWithDebInfo Release CACHE TYPE INTERNAL)
+set(CMAKE_CONFIGURATION_TYPES Debug Release CACHE TYPE INTERNAL)
 set(CMAKE_SKIP_INSTALL_RULES ON)
 set(CMAKE_SKIP_PACKAGE_ALL_DEPENDENCY ON)
 set(CMAKE_SUPPRESS_REGENERATION ON)
