@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="miniupnpc"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\external\;CMake Files\external\miniupnpc\;CMake Files\external\gtest\;CMake Files\external\gtest\cmake\;CMake Files\src\;CMake Files\tests\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/drew/Denari/cmake-build-debug/external/miniupnpc"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="upnpc-static">
+				<Option output="/home/drew/Denari/cmake-build-debug/external/miniupnpc/libminiupnpc.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/drew/Denari/cmake-build-debug/external/miniupnpc"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DMINIUPNPC_SET_SOCKET_TIMEOUT"/>
+					<Add option="-D_BSD_SOURCE"/>
+					<Add option="-D_POSIX_C_SOURCE=1"/>
+					<Add directory="/home/drew/Denari/include"/>
+					<Add directory="/home/drew/Denari/src"/>
+					<Add directory="/home/drew/Denari/external"/>
+					<Add directory="/home/drew/Denari/cmake-build-debug/version"/>
+					<Add directory="/home/drew/Denari/src/Platform/Linux"/>
+					<Add directory="/home/drew/Denari/cmake-build-debug"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 upnpc-static"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="upnpc-static/fast">
+				<Option output="/home/drew/Denari/cmake-build-debug/external/miniupnpc/libminiupnpc.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/drew/Denari/cmake-build-debug/external/miniupnpc"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DMINIUPNPC_SET_SOCKET_TIMEOUT"/>
+					<Add option="-D_BSD_SOURCE"/>
+					<Add option="-D_POSIX_C_SOURCE=1"/>
+					<Add directory="/home/drew/Denari/include"/>
+					<Add directory="/home/drew/Denari/src"/>
+					<Add directory="/home/drew/Denari/external"/>
+					<Add directory="/home/drew/Denari/cmake-build-debug/version"/>
+					<Add directory="/home/drew/Denari/src/Platform/Linux"/>
+					<Add directory="/home/drew/Denari/cmake-build-debug"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 upnpc-static/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/drew/Denari/cmake-build-debug/external/miniupnpc/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/connecthostport.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/connecthostport.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/igd_desc_parse.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/igd_desc_parse.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/minisoap.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/minisoap.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/minissdpc.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/minissdpc.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/miniupnpc.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/miniupnpc.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/miniwget.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/miniwget.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/minixml.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/minixml.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/portlistingparse.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/portlistingparse.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/receivedata.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/receivedata.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/upnpc.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/upnpcommands.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/upnpcommands.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/upnperrors.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/upnperrors.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/upnpreplyparse.c">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/upnpreplyparse.h">
+			<Option target="upnpc-static"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/CTestCustom.cmake">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\external\"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\external\miniupnpc\"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/miniupnpc/miniupnpcstrings.h.cmake">
+			<Option virtualFolder="CMake Files\external\miniupnpc\"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/gtest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\external\gtest\"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/external/gtest/cmake/internal_utils.cmake">
+			<Option virtualFolder="CMake Files\external\gtest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+		<Unit filename="/home/drew/Denari/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\tests\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

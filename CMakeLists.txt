@@ -1,13 +1,8 @@
-cmake_minimum_required(VERSION 2.8.6)
+cmake_minimum_required(VERSION 3.0)
 
 set(VERSION "0.1")
 # $Format:Packaged from commit %H%nset(COMMIT %h)%nset(REFS "%d")$
-SET(BOOST_ROOT "D:/Boost")
-SET(BOOST_INCLUDE_DIR "D:/Boost/Boost_1_70_0/boost/icl")
-SET(BOOST_LIBRARYDIR "/D:/Boost/boost_1_70_0/libs")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set(CMAKE_CONFIGURATION_TYPES Debug Release CACHE TYPE INTERNAL)
-set(CMAKE_SKIP_INSTALL_RULES ON)
 set(CMAKE_SKIP_PACKAGE_ALL_DEPENDENCY ON)
 set(CMAKE_SUPPRESS_REGENERATION ON)
 enable_testing()
@@ -43,7 +38,7 @@ if(MSVC)
   include_directories(SYSTEM src/platform/msc)
 else()
   if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
-    # This option has no effect in glibc version less than 2.20. 
+    # This option has no effect in glibc version less than 2.20.
     # Since glibc 2.20 _BSD_SOURCE is deprecated, this macro is recomended instead
     add_definitions("-D_DEFAULT_SOURCE -D_GNU_SOURCE")
   endif()
@@ -87,7 +82,7 @@ else()
   set(RELEASE_FLAGS "-Ofast -DNDEBUG -Wno-unused-variable")
   if(NOT APPLE)
     # There is a clang bug that does not allow to compile code that uses AES-NI intrinsics if -flto is enabled
-    if (CMAKE_C_COMPILER_ID STREQUAL "GNU" AND CMAKE_SYSTEM_NAME STREQUAL "Linux" 
+    if (CMAKE_C_COMPILER_ID STREQUAL "GNU" AND CMAKE_SYSTEM_NAME STREQUAL "Linux"
         AND CMAKE_BUILD_TYPE STREQUAL "Release" AND ((CMAKE_C_COMPILER_VERSION VERSION_GREATER 4.9) OR (CMAKE_C_COMPILER_VERSION VERSION_EQUAL 4.9)))
       # On linux, to build in lto mode, check that ld.gold linker is used: 'update-alternatives --install /usr/bin/ld ld /usr/bin/ld.gold HIGHEST_PRIORITY'
       set(CMAKE_AR gcc-ar)
