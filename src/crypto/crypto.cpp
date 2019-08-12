@@ -28,10 +28,11 @@ namespace Crypto {
   }
 
   mutex random_lock;
-
+  //generates a random 64 bit number
   static inline void random_scalar(EllipticCurveScalar &res) {
     unsigned char tmp[64];
     generate_random_bytes(64, tmp);
+    //normalize the random byte string
     sc_reduce(tmp);
     memcpy(&res, tmp, 32);
   }

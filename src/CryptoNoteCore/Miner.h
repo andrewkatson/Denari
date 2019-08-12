@@ -3,9 +3,10 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #pragma once
-
+//atomic variables are used for data synchronization across threads
 #include <atomic>
 #include <list>
+//a mutex is a lock for data shared between threads
 #include <mutex>
 #include <thread>
 

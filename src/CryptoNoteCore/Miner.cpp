@@ -3,9 +3,11 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "Miner.h"
-
+//a future is an object that can retrieve a value from some provider object or function, properly synchronizing this access if in different threads
 #include <future>
+//efficient specific math algorithms for a sequence of numeric values
 #include <numeric>
+//stream class to operate on strings
 #include <sstream>
 #include <thread>
 
@@ -55,11 +57,14 @@ namespace CryptoNote
   }
   //-----------------------------------------------------------------------------------------------------
   bool miner::set_block_template(const Block& bl, const difficulty_type& di) {
+    //lock guards are mutexs that smartly create and delete themselves
     std::lock_guard<decltype(m_template_lock)> lk(m_template_lock);
 
     m_template = bl;
     m_diffic = di;
     ++m_template_no;
+
+    //starting point for guessing
     m_starter_nonce = Crypto::rand<uint32_t>();
     return true;
   }
@@ -72,6 +77,7 @@ namespace CryptoNote
     return request_block_template();
   }
   //-----------------------------------------------------------------------------------------------------
+  //This method returns whether or not the block template is currently set.
   bool miner::request_block_template() {
     Block bl = boost::value_initialized<Block>();
     difficulty_type di = 0;
@@ -107,17 +113,20 @@ namespace CryptoNote
     return true;
   }
   //-----------------------------------------------------------------------------------------------------
+  //sets the flag to print the hash_rate when running merge_hr
   void miner::do_print_hashrate(bool do_hr)
   {
     m_do_print_hashrate = do_hr;
   }
 
+  //return the amount of time elapsed since 1970
   uint64_t millisecondsSinceEpoch() {
     auto now = std::chrono::steady_clock::now();
     return std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
   }
 
   //-----------------------------------------------------------------------------------------------------
+  //Add the hash rate from the last hour to the m_last_hash_rates object and update the last_hr_merge_time to the current time.
   void miner::merge_hr()
   {
     if(m_last_hr_merge_time && is_mining()) {
@@ -137,7 +146,7 @@ namespace CryptoNote
     m_last_hr_merge_time = millisecondsSinceEpoch();
     m_hashes = 0;
   }
-
+  //sets up the miner based on the passed config file
   bool miner::init(const MinerConfig& config) {
     if (!config.extraMessages.empty()) {
       std::string buff;
@@ -187,6 +196,7 @@ namespace CryptoNote
     return !m_stop;
   }
   //-----------------------------------------------------------------------------------------------------
+  //starts the miner but first makes sure it isn't already trying to run and there aren't any left over threads from previous runs.
   bool miner::start(const AccountPublicAddress& adr, size_t threads_count)
   {   
     if (is_mining()) {
@@ -235,6 +245,7 @@ namespace CryptoNote
   }
 
   //-----------------------------------------------------------------------------------------------------
+  //locks threads and then waits for them all to finish up their last mining task before clearing the list of threads
   bool miner::stop()
   {
     send_stop_signal();
@@ -249,6 +260,9 @@ namespace CryptoNote
     return true;
   }
   //-----------------------------------------------------------------------------------------------------
+  //Checks to see if the nonce found is the proper nonce for that block if it is returns true that it found the right nonce
+  //for a block. If its not true it continues generating nonces until it finds one or the transcation its mining is no longer
+  //part of the block its calculating the nonce for
   bool miner::find_nonce_for_given_block(Crypto::cn_context &context, Block& bl, const difficulty_type& diffic) {
 
     unsigned nthreads = std::thread::hardware_concurrency();
@@ -281,7 +295,7 @@ namespace CryptoNote
           }
         });
       }
-
+      //auto& allows you to actually modify the threads in the list compared to modifying references
       for (auto& t : threads) {
         t.wait();
       }
@@ -335,6 +349,7 @@ namespace CryptoNote
       logger(TRACE) << "MINING RESUMED";
   }
   //-----------------------------------------------------------------------------------------------------
+  //method that looks for the correct hash from a different starting nonce based on its thread id.
   bool miner::worker_thread(uint32_t th_local_index)
   {
     logger(INFO) << "Miner thread was started ["<< th_local_index << "]";
