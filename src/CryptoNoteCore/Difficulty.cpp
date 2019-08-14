@@ -43,6 +43,18 @@ namespace CryptoNote {
     return a + b < a || (c && a + b == (uint64_t) -1);
   }
 
+  /*
+   * @brief checks if a hash fits the given difficulty
+   *
+   * The hash passes if (hash * difficulty) < 2^256.
+   * Phrased differently, if (hash * difficulty) fits without overflow into
+   * the least significant 256 bits of the 320 bit multiplication result.
+   *
+   * @param hash the hash to check
+   * @param difficulty the difficulty to check against
+   *
+   * @return true if valid, else false
+   */
   bool check_hash(const Crypto::Hash &hash, difficulty_type difficulty) {
     uint64_t low, high, top, cur;
     // First check the highest word, this will most likely fail for a random hash.
