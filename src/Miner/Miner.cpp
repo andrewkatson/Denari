@@ -137,6 +137,7 @@ void Miner::workerFunc(const Block& blockTemplate, difficulty_type difficulty, u
 /*NOTE: it looks like everything here is inverted and then inverted again when implimented above
 *  @params: NONE... but it loads m_state 
 */
+//This method properly sets the state to Block Found if the the miner is currently mining for a block, otherwise returns false.
 bool Miner::setStateBlockFound() {
   auto state = m_state.load();
 
@@ -146,6 +147,7 @@ bool Miner::setStateBlockFound() {
         return false;
 
       case MiningState::MINING_IN_PROGRESS:
+        //compare exchange weak sets m_state to Block_Found if it atomically matches state
         if (m_state.compare_exchange_weak(state, MiningState::BLOCK_FOUND)) {
           return true;
         }

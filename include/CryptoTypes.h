@@ -7,7 +7,7 @@
 #include <cstdint>
 
 namespace Crypto {
-
+//An array of 32 8bit integers
 struct Hash {
   uint8_t data[32];
 };
