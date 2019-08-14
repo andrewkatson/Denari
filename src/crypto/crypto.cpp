@@ -38,6 +38,7 @@ namespace Crypto {
   }
 
   static inline void hash_to_scalar(const void *data, size_t length, EllipticCurveScalar &res) {
+    //set the scalar to a random hash value
     cn_fast_hash(data, length, reinterpret_cast<Hash &>(res));
     sc_reduce32(reinterpret_cast<unsigned char*>(&res));
   }
