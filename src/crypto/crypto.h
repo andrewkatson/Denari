@@ -23,10 +23,12 @@ namespace Crypto {
 
   extern std::mutex random_lock;
 
+/* Elliptical Curve Point is used for creating pritivate/public keys to be hashed */
 struct EllipticCurvePoint {
   uint8_t data[32];
 };
 
+/* Scalars are used to convert between public and private keys */
 struct EllipticCurveScalar {
   uint8_t data[32];
 };
@@ -37,6 +39,7 @@ struct EllipticCurveScalar {
     void operator=(const crypto_ops &);
     ~crypto_ops();
 
+    /* Generate the public and private keys */
     static void generate_keys(PublicKey &, SecretKey &);
     friend void generate_keys(PublicKey &, SecretKey &);
     static bool check_key(const PublicKey &);

@@ -29,6 +29,14 @@ namespace Crypto {
     return h;
   }
 
+
+  /*
+  * class used for miner
+  * class contains the various hash 
+  * NOTE: hashes are 32 arrays containing 8 bit integers and characters
+  * atribute: Data pointer,
+  * methods: slow hash, 
+  */
   class cn_context {
   public:
 
@@ -42,6 +50,10 @@ namespace Crypto {
   private:
 
     void *data;
+    /* 
+    * @params: class reference, a pointer w/ no data type, a size_t input, and a hash reference 
+    * return: a friend inline... this is the new hash that others can access 
+    */
     friend inline void cn_slow_hash(cn_context &, const void *, size_t, Hash &);
   };
 
