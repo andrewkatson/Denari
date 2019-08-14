@@ -18,22 +18,43 @@
 
 namespace CryptoNote {
 
+/* Struct members are public -> blockTemplate and difficulty are public */
+/* TODO: Define Block, Define difficulty_type */
 struct BlockMiningParameters {
   Block blockTemplate;
   difficulty_type difficulty;
 };
 
+/*
+* TODO: Describe all atributes and methods in miner
+*/
 class Miner {
 public:
+
+  /* 
+  * Miner constructor 
+  * @param: dispatcher (TODO), logger (TODO)
+  * TODO: describe dispatcher and logger
+  */
   Miner(System::Dispatcher& dispatcher, Logging::ILogger& logger);
+  /* ~Miner function
+  * @param: 
+  */
   ~Miner();
 
+  /* 
+  * @param: blockMiningParameters (struct containing blockTemplate & difficulty), threadCount (size_t variable)
+  * Return: Block (TODO)
+  * TODO: describe thread count; locate block
+  */
   Block mine(const BlockMiningParameters& blockMiningParameters, size_t threadCount);
 
   //NOTE! this is blocking method
   void stop();
 
 private:
+  /*
+  * atr*/
   System::Dispatcher& m_dispatcher;
   System::Event m_miningStopped;
 
