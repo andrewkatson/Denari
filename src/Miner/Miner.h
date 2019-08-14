@@ -76,6 +76,7 @@ private:
 
   /*
   * m_workers is a vector of smart pointers determined by RemoteContext()
+  * smart pointers are pointers that delete themselves and clear memory when they go out of scope
   * TODO: Identify RemoteContext<void> for more detailed description
   */
   std::vector<std::unique_ptr<System::RemoteContext<void>>>  m_workers;

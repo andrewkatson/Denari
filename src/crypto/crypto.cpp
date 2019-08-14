@@ -37,6 +37,7 @@ namespace Crypto {
     memcpy(&res, tmp, 32);
   }
 
+  /* turns a hash value into a scalar to be used for the private to public */
   static inline void hash_to_scalar(const void *data, size_t length, EllipticCurveScalar &res) {
     //set the scalar to a random hash value
     cn_fast_hash(data, length, reinterpret_cast<Hash &>(res));
@@ -225,7 +226,7 @@ namespace Crypto {
     return true;
   }
 
-
+  /* struct typically named buf in following methods */
   struct s_comm {
     Hash h;
     EllipticCurvePoint key;
@@ -256,11 +257,16 @@ namespace Crypto {
     sc_mulsub(reinterpret_cast<unsigned char*>(&sig) + 32, reinterpret_cast<unsigned char*>(&sig), reinterpret_cast<const unsigned char*>(&sec), reinterpret_cast<unsigned char*>(&k));
   }
 
+  /*
+  * @param: prefix_hash reference (type hash), pub reference (your public key), sig reference (your ring signature)
+  * return: True or False
+  * Uses the hash, pub key, and signature to check to see if signature is accuarate
+  */
   bool crypto_ops::check_signature(const Hash &prefix_hash, const PublicKey &pub, const Signature &sig) {
     ge_p2 tmp2;
     ge_p3 tmp3;
-    EllipticCurveScalar c;
-    s_comm buf;
+    EllipticCurveScalar c; /*NOTE: we think cn_fast_hash sets Eliptical Curve Scalar c*/
+    s_comm buf; /* buf has a hash, a eliptical curve point (key), and another eliptical curve point (comm) */
     assert(check_key(pub));
     buf.h = prefix_hash;
     buf.key = reinterpret_cast<const EllipticCurvePoint&>(pub);
@@ -272,7 +278,7 @@ namespace Crypto {
     }
     ge_double_scalarmult_base_vartime(&tmp2, reinterpret_cast<const unsigned char*>(&sig), &tmp3, reinterpret_cast<const unsigned char*>(&sig) + 32);
     ge_tobytes(reinterpret_cast<unsigned char*>(&buf.comm), &tmp2);
-    hash_to_scalar(&buf, sizeof(s_comm), c);
+    hash_to_scalar(&buf, sizeof(s_comm), c); /* sets the comm in buf to c via cn_fast_hash */
     sc_sub(reinterpret_cast<unsigned char*>(&c), reinterpret_cast<unsigned char*>(&c), reinterpret_cast<const unsigned char*>(&sig));
     return sc_isnonzero(reinterpret_cast<unsigned char*>(&c)) == 0;
   }

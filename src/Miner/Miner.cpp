@@ -2,6 +2,10 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+// 08/14/2019 
+// @Commenter: Nick Thomas
+// TODO: LOOK AT MINING STATE AND ITS IMPLICATIONS; look a system::Dispatcher and system::Logging
+
 #include "Miner.h"
 
 #include <functional>
@@ -85,8 +89,8 @@ void Miner::runWorkers(BlockMiningParameters blockMiningParameters, size_t threa
 
 void Miner::workerFunc(const Block& blockTemplate, difficulty_type difficulty, uint32_t nonceStep) {
   try {
-    Block block = blockTemplate;
-    Crypto::cn_context cryptoContext;
+    Block block = blockTemplate; /* create the block with blockTemplate */
+    Crypto::cn_context cryptoContext; /* create the cn_context with the hashing functions */
 
     while (m_state == MiningState::MINING_IN_PROGRESS) {
       Crypto::Hash hash;
