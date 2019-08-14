@@ -19,10 +19,11 @@ namespace Crypto {
     Cryptonight hash functions
   */
 
+  /* quickly creates a hash using cn_fast_hash... recursive? */
   inline void cn_fast_hash(const void *data, size_t length, Hash &hash) {
     cn_fast_hash(data, length, reinterpret_cast<char *>(&hash));
   }
-
+  
   inline Hash cn_fast_hash(const void *data, size_t length) {
     Hash h;
     cn_fast_hash(data, length, reinterpret_cast<char *>(&h));
