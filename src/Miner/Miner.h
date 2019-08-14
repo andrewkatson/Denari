@@ -21,7 +21,9 @@
 
 namespace CryptoNote {
 
-/* Struct members are public -> blockTemplate and difficulty are public */
+/* Struct members are public -> blockTemplate and difficulty are public 
+* Used to mine & runWorkers
+*/
 /* TODO: Define Block, Define difficulty_type */
 struct BlockMiningParameters {
   Block blockTemplate;
@@ -78,6 +80,7 @@ private:
   * m_workers is a vector of smart pointers determined by RemoteContext()
   * smart pointers are pointers that delete themselves and clear memory when they go out of scope
   * TODO: Identify RemoteContext<void> for more detailed description
+  * looks like m_workers is vector with a pointer to each thread doing the work 
   */
   std::vector<std::unique_ptr<System::RemoteContext<void>>>  m_workers;
 

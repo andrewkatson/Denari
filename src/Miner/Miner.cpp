@@ -25,11 +25,17 @@ Miner::Miner(System::Dispatcher& dispatcher, Logging::ILogger& logger) :
 }
 
 Miner::~Miner() {
-  assert(m_state != MiningState::MINING_IN_PROGRESS);
+  assert(m_state != MiningState::MINING_IN_PROGRESS); /* deconstuctor asserts that mining isn't in progress */
 }
 
+/* 
+* @param: blockMiningParameters , threadCournt (size_t)
+* return: returns a Block 
+* mine() checks the mining state, then sets mining state. From there it runs workers, checking to see if block is found regualrly.
+* Then it returns the Block mined
+*/
 Block Miner::mine(const BlockMiningParameters& blockMiningParameters, size_t threadCount) {
-  if (threadCount == 0) {
+  if (threadCount == 0) { 
     throw std::runtime_error("Miner requires at least one thread");
   }
 
@@ -37,10 +43,10 @@ Block Miner::mine(const BlockMiningParameters& blockMiningParameters, size_t thr
     throw std::runtime_error("Mining is already in progress");
   }
 
-  m_state = MiningState::MINING_IN_PROGRESS;
-  m_miningStopped.clear();
+  m_state = MiningState::MINING_IN_PROGRESS; /* set m_state */
+  m_miningStopped.clear(); /* empty stop time? */
 
-  runWorkers(blockMiningParameters, threadCount);
+  runWorkers(blockMiningParameters, threadCount); /* TODO: look into runWorkers... looks like it sends parameters to each working thread */
 
   assert(m_state != MiningState::MINING_IN_PROGRESS);
   if (m_state == MiningState::MINING_STOPPED) {
@@ -48,6 +54,7 @@ Block Miner::mine(const BlockMiningParameters& blockMiningParameters, size_t thr
     throw System::InterruptedException();
   }
 
+  /* returns the block if m_state determines block found according to MiningState */
   assert(m_state == MiningState::BLOCK_FOUND);
   return m_block;
 }
@@ -61,20 +68,26 @@ void Miner::stop() {
   }
 }
 
+/*
+* @params: blockMiningParameters, threadCount (number of threads as size_t)
+* return: 
+* 
+*/
 void Miner::runWorkers(BlockMiningParameters blockMiningParameters, size_t threadCount) {
   assert(threadCount > 0);
 
-  m_logger(Logging::INFO) << "Starting mining for difficulty " << blockMiningParameters.difficulty;
+  m_logger(Logging::INFO) << "Starting mining for difficulty " << blockMiningParameters.difficulty; /* lakes logging INFO to set difficulty in bmp*/
 
   try {
-    blockMiningParameters.blockTemplate.nonce = Crypto::rand<uint32_t>();
+    blockMiningParameters.blockTemplate.nonce = Crypto::rand<uint32_t>(); /* generate random nonce key */
 
+    /* distributes the work to each thread */
     for (size_t i = 0; i < threadCount; ++i) {
       m_workers.emplace_back(std::unique_ptr<System::RemoteContext<void>> (
         new System::RemoteContext<void>(m_dispatcher, std::bind(&Miner::workerFunc, this, blockMiningParameters.blockTemplate, blockMiningParameters.difficulty, threadCount)))
       );
 
-      blockMiningParameters.blockTemplate.nonce++;
+      blockMiningParameters.blockTemplate.nonce++; /* increase the nonce by one for each worker/thread */
     }
 
     m_workers.clear();
@@ -120,6 +133,10 @@ void Miner::workerFunc(const Block& blockTemplate, difficulty_type difficulty, u
     m_state = MiningState::MINING_STOPPED;
   }
 }
+
+/*NOTE: it looks like everything here is inverted and then inverted again when implimented above
+*  @params: NONE... but it loads m_state 
+*/
 //This method properly sets the state to Block Found if the the miner is currently mining for a block, otherwise returns false.
 bool Miner::setStateBlockFound() {
   auto state = m_state.load();
