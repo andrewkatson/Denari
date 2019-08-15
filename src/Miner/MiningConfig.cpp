@@ -26,7 +26,8 @@ const char* DEFAULT_DAEMON_HOST = "127.0.0.1";
 const size_t CONCURRENCY_LEVEL = std::thread::hardware_concurrency();
 
 po::options_description cmdOptions;
-
+//Splits up the address into the IP and the port when the input is for example: 127.0.0.1:25565 it splits it into
+//127.0.0.1 and 25565
 void parseDaemonAddress(const std::string& daemonAddress, std::string& daemonHost, uint16_t& daemonPort) {
   std::vector<std::string> splittedAddress;
   boost::algorithm::split(splittedAddress, daemonAddress, boost::algorithm::is_any_of(":"));

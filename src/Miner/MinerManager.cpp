@@ -88,6 +88,8 @@ void MinerManager::eventLoop() {
     MinerEvent event = waitEvent();
 
     switch (event.type) {
+      //if we mined a block submit it to the network for confirmation, readjust block params and the block template and
+      //resume mining.
       case MinerEventType::BLOCK_MINED: {
         m_logger(Logging::DEBUGGING) << "got BLOCK_MINED event";
         stopBlockchainMonitoring();
@@ -108,7 +110,8 @@ void MinerManager::eventLoop() {
         startMining(params);
         break;
       }
-
+      //If the block chain was updated stop mining so you can update the parameters and the block template then resume
+      //monitoring the blockchain and start mining again with the new params.
       case MinerEventType::BLOCKCHAIN_UPDATED: {
         m_logger(Logging::DEBUGGING) << "got BLOCKCHAIN_UPDATED event";
         stopMining();
@@ -139,7 +142,7 @@ MinerEvent MinerManager::waitEvent() {
 
   return event;
 }
-
+//Add an event to the event queue and set event occurred.
 void MinerManager::pushEvent(MinerEvent&& event) {
   m_events.push(std::move(event));
   m_eventOccurred.set();
@@ -161,6 +164,7 @@ void MinerManager::stopMining() {
   m_miner.stop();
 }
 
+//poll the blockchain until we've either mined a block or the blockchain has been updated.
 void MinerManager::startBlockchainMonitoring() {
   m_contextGroup.spawn([this] () {
     try {
