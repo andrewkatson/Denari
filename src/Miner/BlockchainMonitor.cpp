@@ -30,6 +30,7 @@ BlockchainMonitor::BlockchainMonitor(System::Dispatcher& dispatcher, const std::
   m_httpEvent.set();
 }
 
+/*TODO describe*/
 void BlockchainMonitor::waitBlockchainUpdate() {
   m_logger(Logging::DEBUGGING) << "Waiting for blockchain updates";
   m_stopped = false;

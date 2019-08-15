@@ -23,6 +23,7 @@ namespace Miner {
 
 namespace {
 
+/* makes sense... chooses either block has been mined instead of blockchain updated from the MinerEventType enum*/
 MinerEvent BlockMinedEvent() {
   MinerEvent event;
   event.type = MinerEventType::BLOCK_MINED;
