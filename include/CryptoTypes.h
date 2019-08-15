@@ -6,6 +6,7 @@
 
 #include <cstdint>
 
+/* Crypto has a Hash, Public Key, Secret Key, Key Derivation, Key Image, Signature (64 bits) */
 namespace Crypto {
 //An array of 32 8bit integers
 struct Hash {

@@ -2,6 +2,9 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+// 08/15/2019
+// @Commentor: Nick Thomas 
+
 #include "BlockchainMonitor.h"
 
 #include "Common/StringTools.h"
@@ -15,7 +18,7 @@
 #include "Rpc/HttpClient.h"
 
 BlockchainMonitor::BlockchainMonitor(System::Dispatcher& dispatcher, const std::string& daemonHost, uint16_t daemonPort, size_t pollingInterval, Logging::ILogger& logger):
-  m_dispatcher(dispatcher),
+  m_dispatcher(dispatcher), /* TODO: What is m_dispatcher( ) and other m_()*/
   m_daemonHost(daemonHost),
   m_daemonPort(daemonPort),
   m_pollingInterval(pollingInterval),
@@ -31,6 +34,8 @@ void BlockchainMonitor::waitBlockchainUpdate() {
   m_logger(Logging::DEBUGGING) << "Waiting for blockchain updates";
   m_stopped = false;
 
+  /* lastBlockHash grabs the last hashed block used to create the next hash */
+  /* a hash contains a hash, last hash*/
   Crypto::Hash lastBlockHash = requestLastBlockHash();
 
   while(!m_stopped) {
