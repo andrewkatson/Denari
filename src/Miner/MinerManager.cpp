@@ -23,13 +23,18 @@ namespace Miner {
 
 namespace {
 
-/* makes sense... chooses either block has been mined instead of blockchain updated from the MinerEventType enum*/
+/* makes sense... chooses BLOCK_MINED instead of BLOCK_MINED from the MinerEventType enum
+* return: MinerEvent (a struct that holds the MinerEventType enum)
+*/
 MinerEvent BlockMinedEvent() {
   MinerEvent event;
   event.type = MinerEventType::BLOCK_MINED;
   return event;
 }
 
+/* chooses BLOCKHAIN_UPDATED from the MinerEventType enum then 
+* return: MinerEvent (a struct that holds the MinerEventType enum)
+*/
 MinerEvent BlockchainUpdatedEvent() {
   MinerEvent event;
   event.type = MinerEventType::BLOCKCHAIN_UPDATED;
@@ -71,7 +76,7 @@ void MinerManager::start() {
       continue;
     }
 
-    adjustBlockTemplate(params.blockTemplate);
+    adjustBlockTemplate(params.blockTemplate); /*TODO: what does adjustBlockTemplate() do?*/
     break;
   }
 
