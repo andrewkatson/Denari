@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "FileLogger.h"
-
+//A version of the logger that writes to a specific file
 namespace Logging {
 
 FileLogger::FileLogger(Level level) : StreamLogger(level) {

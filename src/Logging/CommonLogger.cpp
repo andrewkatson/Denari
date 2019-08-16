@@ -8,7 +8,7 @@ namespace Logging {
 
 namespace {
 
-std::string formatPattern(const std::string& pattern, const std::string& category, Level level, boost::posix_time::ptime time) {
+std::string formatPattern(const std::string& pattern, const std::string& category, Level level, boost::posix_time::ptime time){
   std::stringstream s;
 
   for (const char* p = pattern.c_str(); p && *p != 0; ++p) {

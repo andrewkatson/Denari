@@ -17,7 +17,7 @@ StreamLogger::StreamLogger(std::ostream& stream, Level level) : CommonLogger(lev
 void StreamLogger::attachToStream(std::ostream& stream) {
   this->stream = &stream;
 }
-
+//as long as the stream exists and is in a good state add the message into the stream.
 void StreamLogger::doLogString(const std::string& message) {
   if (stream != nullptr && stream->good()) {
     std::lock_guard<std::mutex> lock(mutex);
@@ -29,7 +29,7 @@ void StreamLogger::doLogString(const std::string& message) {
         *stream << message[charPos];
       }
     }
-
+    //now that the stream has the log message output it to the system
     *stream << std::flush;
   }
 }

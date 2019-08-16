@@ -15,6 +15,9 @@ void LoggerGroup::addLogger(ILogger& logger) {
 }
 
 void LoggerGroup::removeLogger(ILogger& logger) {
+  //when removing objects from a vector you first want to std::remove it so that the function pushes all the values you want to
+  //the end of the list then use the iterator returned by std::remove as the starting point for erase to go from there to the end
+  //so it can erase all copies of whatever object you wanted removed.
   loggers.erase(std::remove(loggers.begin(), loggers.end(), &logger), loggers.end());
 }
 

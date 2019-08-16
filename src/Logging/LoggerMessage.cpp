@@ -5,7 +5,7 @@
 #include "LoggerMessage.h"
 
 namespace Logging {
-
+//initialize the message with the given logger, category, level, and color
 LoggerMessage::LoggerMessage(ILogger& logger, const std::string& category, Level level, const std::string& color)
   : std::ostream(this)
   , std::streambuf()
@@ -16,7 +16,7 @@ LoggerMessage::LoggerMessage(ILogger& logger, const std::string& category, Level
   , timestamp(boost::posix_time::microsec_clock::local_time())
   , gotText(false) {
 }
-
+//when destroy put endl into this
 LoggerMessage::~LoggerMessage() {
   if (gotText) {
     (*this) << std::endl;
