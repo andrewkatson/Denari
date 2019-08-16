@@ -14,6 +14,20 @@
 
 namespace CryptoNote {
 
+/* CryptoNoteConnectionContext (used in CryptoNoteProtocolHandler and P2P) has:
+* verison
+* m_connection_id (univerally unique identifyer)
+* m_remote_ip
+* m_remote_port
+* m_is_income (a boolian)
+* m_started (which is a time_t)
+* m_state (enum of states listed below)
+* m_needed_objects (a list of Hashes (32 size array of uint8_t))\
+* m_remote_blockchain_height (TODO)
+* m_last_response_height (TODO)
+ TODO: describe where each comesfrom and where its used 
+
+*/
 struct CryptoNoteConnectionContext {
   uint8_t version;
   boost::uuids::uuid m_connection_id;
